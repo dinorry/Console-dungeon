@@ -3,7 +3,7 @@ import json
 from random import randrange, randint
 
 
-class Room() :
+class Room:
     def __init__ (self) :
         self.chest_generator_int = randrange(10)
         self.monster_generator_int = randrange(10)
@@ -18,11 +18,11 @@ class Room() :
 
 
 
-class Chest() :
+class Chest:
     def __init__(self):
         self.amount_of_gold = randint(1,5)
 
-class Monster() :
+class Monster:
     max_gold = 30
     max_xp = 25
     max_hp =20
@@ -45,10 +45,10 @@ class Monster() :
         else :
             return False
 
-class Character () :
+class Character:
 
 
-    #arrays for lvlups
+    #arrays for level ups
     attack_list = [3]
     armor_list = [1]
     hp_list = [10]
@@ -125,18 +125,18 @@ class Character () :
 
 
 
-def fight(monster, character) :
-    c_damage = character.attack - monster.armor
-    m_damage = monster.attack-character.armor
+def fight(curr_monster, character) :
+    c_damage = character.attack - curr_monster.armor
+    m_damage = curr_monster.attack - character.armor
 
     #returns True if monster is still alive
     def attack_monster() :
-        monster.curr_hp -= c_damage
-        if monster.curr_hp < 0:
+        curr_monster.curr_hp -= c_damage
+        if curr_monster.curr_hp < 0:
             print('You defeated the monster with your last blow of {} damage'.format_map(c_damage))
             return False
         else :
-            print('You attack the monster dealing him {} points of damage. He now has {} HP'.format(c_damage, monster.curr_hp))
+            print('You attack the monster dealing him {} points of damage. He now has {} HP'.format(c_damage, curr_monster.curr_hp))
             return True
 
     # returns True if character is still alive
@@ -150,9 +150,9 @@ def fight(monster, character) :
     while True :
         input()
         attack_monster()
-        if not monster.is_alive() :
+        if not curr_monster.is_alive() :
             input()
-            defeat_monster(monster, character)
+            defeat_monster(curr_monster, character)
             return True
         input()
         attack_character()
@@ -178,9 +178,9 @@ def save_lost(character) :
         dic ={"Level" : character.lvl_next_round}
         save.write(str(dic))
 
-def defeat_monster(monster, character) :
-    character.xp += monster.xp
-    character.gold += monster.gold
+def defeat_monster(curr_monster, character) :
+    character.xp += curr_monster.xp
+    character.gold += curr_monster.gold
 
 
 def kill_character (character) :
